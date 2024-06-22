@@ -56,11 +56,11 @@ export const langs = [
   { id: 'zh', name: '中文简体' },
   { id: 'zh_hk', name: '中文繁體' },
   { id: 'en', name: 'English' },
-  { id: 'id', name: 'Bahasa Indonesia' },
+  // { id: 'id', name: 'Bahasa Indonesia' },
   { id: 'es', name: 'Español' },
   { id: 'ar', name: 'عربي' },
   { id: 'tr', name: 'Türkçe' },
-  { id: 'iny', name: 'हिंदी' },
+  // { id: 'iny', name: 'हिंदी' },
 
   // { id: 'fr', name: 'Français'},
   // { id: 'ita', name: 'Italiano' },

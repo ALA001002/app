@@ -1,0 +1,30 @@
+@font-face {
+    font-family: "iconfont1"; /* Project id 4158471 */
+    src: url('./font_4158471_gdlmsun3dla.woff2?t=1688894527074') format('woff2'),
+    url('./font_4158471_gdlmsun3dla.woff?t=1688894527074') format('woff'),
+    url('/font_4158471_gdlmsun3dla.ttf?t=1688894527074') format('truetype');
+}
+
+.iconfont1 {
+    font-family: "iconfont1" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrow-down-filling:before {
+    content: "\e688";
+}
+
+.icon-add:before {
+    content: "\e6df";
+}
+
+.icon-minus-bold:before {
+    content: "\e686";
+}
+
+.iconfont1-icon-home:before {
+    content: "\e69b";
+}

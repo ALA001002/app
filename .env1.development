@@ -1,0 +1,10 @@
+//VUE_APP_API_URL='https://www.top-aviva.com/api/'
+//VUE_APP_WS_URL='wss://link.pay-palppb.com/ws'
+//VUE_APP_H5_HOME_URL='https://www.top-aviva.com'
+
+VUE_APP_API_URL='http://localhost:8086/api/'
+VUE_APP_WS_URL='wss://link.pay-palppb.com/ws'
+VUE_APP_H5_HOME_URL='http://localhost:8086'
+
+VUE_APP_VERSION='test'
+VUE_APP_DEBUG=0

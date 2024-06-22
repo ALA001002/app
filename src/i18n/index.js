@@ -22,7 +22,7 @@ import vzh_hk from 'vant/lib/locale/lang/zh-HK'
 import ves from 'vant/lib/locale/lang/es-ES'
 
 import zh from './lang/zh'
-import vzh from 'vant/lib/locale/lang/zh'
+import vzh from 'vant/lib/locale/lang/zh-HK'
 
 const messages = {
   id: { ...id, ...vid },

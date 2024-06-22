@@ -153,7 +153,7 @@ export default {
       handler(val) {
         this.times = []
         this.form.period = null
-        this.$http.get('common/getTimeContractPeriod?symbolCode=' + val).then(data => {
+        this.$http.get('timeContract/getTimeContractPeriod?symbolCode=' + val).then(data => {
           this.times = data
           if (this.times.length > 0) {
             this.form.period = this.times[0].period

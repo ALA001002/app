@@ -36,7 +36,7 @@ export default {
       return [
         { name: this.$t('app.home'),type:2, icon: 'home', to: '/home' },
         { name: this.$t('app.licai'), icon: 'licai', to: '/DeFi' },
-        { name: this.$t('app.options'), icon: '31daifahuo', to: '/options/btcusdt' },
+        { name: this.$t('app.options'), icon: '31daifahuo', to: '/options' },
         // { name: this.$t('spot.name'),type:1, icon: '31daifahuo', to: '/ico/btcusdt' },
         { name: this.$t('app.account'), icon: '31wode', to: '/account' },
         // { name: this.$t('subscription.swichtitle'), icon: 'saoma', to: '/activity' },

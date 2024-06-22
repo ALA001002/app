@@ -66,8 +66,6 @@ export default {
     '1week':	'1周',
   },
   app: {
-
-
     validCode:	'有效代码',
     googleAuthenticate:	'谷歌身份验证',
     authenticated:	'认证',
@@ -216,22 +214,22 @@ export default {
   withdraw:{
     chainName:	'名称',
     fee:	'续费',
-    balance:	'用余额',
-    withdraw:	'币',
-    all:	'部',
+    balance:	'可用余额',
+    withdraw:	'提币',
+    all:	'全部',
     pleaseSelectAddress:	'选择地址',
     enterWithdrawalAmount:	'输入提现金额',
     withdrawalType:	'提现类型',
   },
   deposit:{
-    selfRecharge:	'助充值',
-    manualRecharge:	'工充值',
-    copy:	'制',
+    selfRecharge:	'自助充值',
+    manualRecharge:	'人工充值',
+    copy:	'复制',
     chainName:	'名称',
-    walletAddress:	'包地址',
-    rechargePrice:	'值金额',
-    rechargeMin:	'低充值',
-    rechargeOrigin:	'值来源地址',
+    walletAddress:	'钱包地址',
+    rechargePrice:	'充值金额',
+    rechargeMin:	'最低充值',
+    rechargeOrigin:	'充值来源地址',
     rechargeCertificate:	'上传充值凭证',
   },
   login: {

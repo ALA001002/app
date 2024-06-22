@@ -19,8 +19,10 @@ import vid from './lang/vid'
 
 import ven from 'vant/lib/locale/lang/en-US'
 import vzh_hk from 'vant/lib/locale/lang/zh-HK'
-// import vde from 'vant/lib/locale/lang/de-DE'
 import ves from 'vant/lib/locale/lang/es-ES'
+
+import zh from './lang/zh'
+import vzh from 'vant/lib/locale/lang/zh'
 
 const messages = {
   id: { ...id, ...vid },
@@ -31,13 +33,14 @@ const messages = {
   ar: { ...ar, ...vary },
   // de: { ...de, ...vde },
   zh_hk: { ...zh_hk, ...vzh_hk },
+  zh: { ...zh, ...vzh },
   // fr: { ...fr, ...vfr },
   // ita: {...ita, ...vita },
 }
 
 Vue.use(VueI18n)
 //从localStorage中拿到用户的语言选择。
-const locale = localStorage.lang || 'en'
+const locale = localStorage.lang || 'zh'
 const i18n = new VueI18n({ messages })
 store.set('lang', locale)
 
@@ -50,14 +53,15 @@ i18n.changeLang = function(lang) {
 i18n.changeLang(locale)
 
 export const langs = [
+  { id: 'zh', name: '中文简体' },
+  { id: 'zh_hk', name: '中文繁體' },
   { id: 'en', name: 'English' },
   { id: 'id', name: 'Bahasa Indonesia' },
   { id: 'es', name: 'Español' },
   { id: 'ar', name: 'عربي' },
   { id: 'tr', name: 'Türkçe' },
   { id: 'iny', name: 'हिंदी' },
-  // { id: 'zh_hk', name: '中文繁體' },
-  // { id: 'de', name: 'Deutsch' },
+
   // { id: 'fr', name: 'Français'},
   // { id: 'ita', name: 'Italiano' },
 ]

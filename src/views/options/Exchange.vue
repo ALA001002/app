@@ -165,7 +165,7 @@ export default {
     }
   },
   methods: {
-    unitChange(unit){
+    unitChange(){
     },
     show(type) {
       if (this.showPanel) {

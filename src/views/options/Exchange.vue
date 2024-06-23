@@ -37,7 +37,7 @@
       </div>
     </collapse-transition>
     <!-- K线 -->
-    <KLine ref="kline" :data="data" class="is-grow has-background-black-ter" style="overflow: hidden;"/>
+    <KLine ref="kline" :unitChange="unitChange" :data="data" class="is-grow has-background-black-ter" style="overflow: hidden;"/>
     <!-- 下单面板 -->
     <collapse-transition>
       <OptionsForm ref="form" v-show="showPanel" :data="data" @down="showPanel=false" @change="formChange"/>
@@ -165,6 +165,9 @@ export default {
     }
   },
   methods: {
+    unitChange(unit){
+      console.log(unit)
+    },
     show(type) {
       if (this.showPanel) {
         // 校验

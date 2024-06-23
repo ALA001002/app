@@ -1,5 +1,5 @@
 <template>
-  <router-link tag="div" class="box has-text-dark  has-text-weight-bold" :to="data?'/ico/'+data.symbolCode:''">
+  <router-link tag="div" class="box has-text-dark  has-text-weight-bold" :to="data?'/options/'+data.symbolCode:''">
     <small>{{ data.symbolName }}</small>
     <p class="is-size-6 my-1" style="line-height: 1rem">
       <van-skeleton title-width="100%" title :loading="!data.price && data.price != 0">

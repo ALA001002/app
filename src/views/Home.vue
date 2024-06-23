@@ -195,7 +195,7 @@ export default {
       this.$router.push(`/view?id=${data.id}&title=${data.title}`)
     },
     tradingSelect(data) {
-      this.$router.push('/ico/'+data.symbolCode)
+      this.$router.push('/options/'+data.symbolCode)
     }
   }
 }

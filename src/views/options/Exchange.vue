@@ -166,7 +166,6 @@ export default {
   },
   methods: {
     unitChange(unit){
-      console.log(unit)
     },
     show(type) {
       if (this.showPanel) {

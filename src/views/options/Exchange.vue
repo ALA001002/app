@@ -82,6 +82,23 @@
         <div>{{$t('exchange.minMoney')}}</div><div> {{ form.minMoney }} <small>{{form.currency}}</small></div>
       </div>
     </van-dialog>
+    <!-- 确认面板 -->
+    <van-dialog v-model="calcConfirm" :title="$t('exchange.confirmBuy')" class="dark-dialog"
+                @confirm="calcConfirm=false">
+      <div class="confirmPanel">
+        <div>{{$t('exchange.tradeType')}}</div>
+        <div>
+          <span :style="{color: calcItem.tradeType == '1' ? '#2DBC8C' : '#EB616E'}">
+            {{calcItem.tradeType == '1' ? $t('exchange.long') : $t('exchange.short')}}
+          </span>
+        </div>
+        <div>{{$t('exchange.optionsPeriod')}}</div><div>{{calcItem.period}}s</div>
+        <div>{{$t('exchange.yield')}}</div><div> {{ calcItem.yieldRate }}%</div>
+        <div>{{$t('exchange.margin')}}</div><div>{{calcItem.amount}} <small>{{calcItem.currency}}</small></div>
+        <div>{{$t('order.fee')}}</div><div> {{ calcItem.fee }}%</div>
+        <div>{{$t('exchange.minMoney')}}</div><div> {{ calcItem.minMoney }} <small>{{calcItem.currency}}</small></div>
+      </div>
+    </van-dialog>
   </div>
 </template>
 
@@ -91,8 +108,8 @@ import TextFormat from '@/components/TextFormat.vue'
 import KLine from '@/components/KLine.vue'
 import OptionsForm from '@/components/OptionsForm.vue'
 import CollapseTransition from '@/components/CollapseTransition.vue'
-import { get } from 'vuex-pathify'
-import { Toast } from 'vant'
+import {get} from 'vuex-pathify'
+import {Toast} from 'vant'
 
 export default {
   name: 'Home',
@@ -105,17 +122,21 @@ export default {
   components: { HeadSafeArea, TextFormat, KLine, CollapseTransition, OptionsForm },
   data() {
     return {
+      calcItem:{},
+      calcConfirm:false,
       showBar: false,
       showPanel: false,
       showConfirm: false,
+      timer:null,
       form: {},
       remark: '',
-      showExchangeBtn: true
+      showExchangeBtn: true,
+      allList:[{remainTime:0}]
     }
   },
   created() {
     this.$http.get('common/getSysArticle?key=qqxx').then(data => {
-      this.remark = data.content
+      this.remark = data?.content
     })
     if(this.$route.params.code.startsWith('ppb')){
       this.showExchangeBtn = false
@@ -158,6 +179,7 @@ export default {
     setTimeout(() => {
       this.$refs.kline.resize()
     }, 600)
+    this.load()
   },
   destroyed() {
     if (window.plus) {
@@ -165,6 +187,31 @@ export default {
     }
   },
   methods: {
+    startTime(){
+      clearTimeout(this.timer)
+      this.timer = setInterval(() => {
+        const data = this.allList.filter(p => p.remainTime > 0)
+        for (let datum of data) {
+          datum.remainTime = datum.remainTime-1
+          if(datum.remainTime===0){
+            this.calcItem = datum
+            this.calcConfirm = true
+          }
+        }
+      }, 1000)
+    },
+    load: function() {
+      const form = Object.assign({}, this.form)
+      form.status = null
+      this.$http.get('timeContract/listContract', form).then(data => {
+        this.isLoading = false
+        this.allList =data
+        this.startTime()
+      }).catch(() => {
+        this.allList = []
+        this.isLoading = false
+      })
+    },
     unitChange(){
     },
     show(type) {
@@ -188,6 +235,7 @@ export default {
       this.$http.post('timeContract/buyContract', form,true).then(() => {
         Toast.success()
         this.$refs.form.load()
+        this.load()
       }).catch((err) => {
         // console.log(err)
         if(err.data == null) {

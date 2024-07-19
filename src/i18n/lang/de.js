@@ -1,4 +1,5 @@
 export default {
+  'order-has-finish':'Bestellung ist abgeschlossen',
   home:{
     download:'Herunterladen',
     confirm:'bestätigen',

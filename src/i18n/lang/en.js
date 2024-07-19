@@ -1,4 +1,5 @@
 export default {
+  'order-has-finish':'Order has finish',
   home:{
     download:'Download',
     confirm:'Confirm',

@@ -1,4 +1,5 @@
 export default {
+  'order-has-finish':'لقد انتهى الطلب',
   home:{
     download:'تحميل',
     confirm:'أكد',

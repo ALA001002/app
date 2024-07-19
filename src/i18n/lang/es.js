@@ -1,4 +1,5 @@
 export default {
+  'order-has-finish':'El pedido ha finalizado',
   home:{
     download:'Descargar',
     confirm:'Confirmar',

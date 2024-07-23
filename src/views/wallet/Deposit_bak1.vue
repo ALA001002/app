@@ -27,7 +27,7 @@
           </div> -->
           <div class="flex-between px-3 my-3">
             <span class="text-15px text-mid">{{ $t('deposit.chainName') }}</span>
-            <div v-if="coin == 'USDT'" class="text-primary text-14px">{{persion===1?'TRC20':'ERC20'}}</div>
+            <div v-if="coin == 'USDT'" class="text-primary text-14px">{{usdtType===0?'TRC20':'ERC20'}}</div>
             <div v-else class="text-primary text-14px">{{ coin }}</div>
           </div>
           <div class="card-bg px-3 py-4" v-if="persion!==3">
@@ -46,22 +46,22 @@
               </div>
             </div>
             <div v-else>
-              <van-tabs v-model="tabIndex">
-                <van-tab v-if="persion === 1" title='TRC20'>
+              <van-tabs v-model="usdtType" >
+                <van-tab title='TRC20' @click="usdtType=0">
                   <div class="text-16px text-mid mb-5"> {{ $t('deposit.walletAddress') }}</div>
                   <div class="my-3">
-                    <vue-qr ref="qr" v-if="trcAddress" :text="trcAddress" :size="160" class="m-auto radius-4"></vue-qr>
+                    <vue-qr ref="qr" v-if="address" :text="address" :size="160" class="m-auto radius-4"></vue-qr>
                   </div>
                   <div class="address mb-1  flex-between" style="margin-top: 42px;font-size: 0.5333rem">
                     <div class="text-10px flex1 wb text-mid">
-                      {{ trcAddress }}
+                      {{ address }}
                     </div>
-                    <div class="flex ml-3 text-13px text-mid" v-copy="trcAddress">
+                    <div class="flex ml-3 text-13px text-mid" v-copy="address">
                       <i class="icon icon-fuzhi text-20px mr-1"/>{{ $t('deposit.copy') }}
                     </div>
                   </div>
                 </van-tab>
-                <van-tab v-if="persion === 2" title='ERC20'>
+                <van-tab title='ERC20' @click="usdtType=1">
                   <div class="text-16px text-mid mb-5"> {{ $t('deposit.walletAddress') }}</div>
                   <div class="my-3">
                     <vue-qr ref="qr" v-if="address" :text="address" :size="160" class="m-auto radius-4"></vue-qr>
@@ -129,8 +129,8 @@
       </div>
     </div>
 
-    <van-action-sheet v-model="showSelectModal" close-on-click-action :cancel-text="$t('app.cancel')" :actions="actions.filter(t=> ['ETH','BTC'].indexOf(this.coin)===-1 || t.type!==1 )"
-                      :round="false" @select="setType"/>
+<!--    <van-action-sheet v-model="showSelectModal" close-on-click-action :cancel-text="$t('app.cancel')" :actions="actions.filter(t=> ['ETH','BTC'].indexOf(this.coin)===-1 || t.type!==1 )"-->
+<!--                      :round="false" @select="setType"/>-->
     <van-action-sheet v-model="showAccount" close-on-click-action :cancel-text="$t('app.cancel')" :actions="accounts"
                       :round="false" @select="accountSelect"/>
     <!-- <SelectCoinVue addPersion ref="selectCoin" filter="supRecharge" @select="coin=$event" :title="$t('extra.recharge')"></SelectCoinVue> -->
@@ -155,8 +155,8 @@ export default {
       coin: this.$route.params.coin,
       remark: '',
       showAccount: false,
-      persion: 1,
-      usdtType: 1,
+      persion: 2,
+      usdtType: 0,
       address: '',
       trcAddress: '',
       payPassageId: '',
@@ -188,36 +188,42 @@ export default {
     }
   },
   watch: {
+    usdtType(val){
+      const rqUrl = 'asset/manualRechargeAddress'
+      this.$http.get(rqUrl, {currency:val===0?'USDT_TRC20':'USDT'})
+          .then(data => {
+            this.address = data.address
+            this.form.coin = 'USDT'
+            // this.form.toAddress = data
+          })
+    },
     coin: {
       handler(val) {
         this.form.coin = ''
         if (!val) return
-        var rqUrl = 'asset/getWalletAddress'
-        if( ['ETH','BTC'].indexOf(this.coin)!==-1 ){
-          this.persion = 2
-        }
-        if (this.persion == 2) {
-          rqUrl = 'asset/manualRechargeAddress'
-        }
+        this.persion = 2
+        // var rqUrl = 'asset/getWalletAddress'
+        // if( ['ETH','BTC'].indexOf(this.coin)!==-1 ){
+        //   this.persion = 2
+        // }
+        // if (this.persion == 2) {
+        const rqUrl = 'asset/manualRechargeAddress'
+        // }
         if (val === 'USDT') {
           this.usdtFlag = true
+          // this.$http.get(rqUrl, {currency: 'USDT_TRC20'})
+          //     .then(data => {
+          //       if (this.persion == 1) {
+          //         this.trcAddress = data
+          //       } else {
+          //         this.trcAddress = data.address
+          //       }
+          //       this.form.coin = 'USDT'
+          //       // this.form.toAddress = data
+          //     })
           this.$http.get(rqUrl, {currency: 'USDT_TRC20'})
               .then(data => {
-                if (this.persion == 1) {
-                  this.trcAddress = data
-                } else {
-                  this.trcAddress = data.address
-                }
-                this.form.coin = 'USDT'
-                // this.form.toAddress = data
-              })
-          this.$http.get(rqUrl, {currency: 'USDT'})
-              .then(data => {
-                if (this.persion == 1) {
-                  this.address = data
-                } else {
-                  this.address = data.address
-                }
+                this.address = data.address
                 this.form.coin = 'USDT'
                 // this.form.toAddress = data
               })
